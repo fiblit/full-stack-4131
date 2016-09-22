@@ -1,0 +1,137 @@
+.time {
+  font-style: italic;
+}
+
+.title {
+  font-size: 300%;
+  font-family: "Courier", monospace;
+  color: black;
+  font-weight: bold;
+}
+
+nav {
+  background: #99c0b0;
+  margin: 5px 0px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  border-right: 2px solid white;
+  padding: 8px 8px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: #99c0b0;
+  color: black;
+}
+
+nav ul li:first-child a {
+  border-left: 2px solid white;
+}
+
+nav ul li a:hover {
+  background: #779887
+}
+
+.nav-current {
+  background: #99b0c0
+}
+
+.nav-current:hover {
+  background: #778798
+}
+
+.nav-div {
+  position: relative;
+  width: 33%;
+  margin-left: 33%;
+}
+
+.dayofweek {
+  font-family: Courier, monospace;
+  font-size: 150%;
+  text-decoration: underline;
+}
+
+label {
+  display: block;
+  width: 30%;
+  margin: 8px 0px;
+  border-bottom: 2px dotted white;
+}
+
+.form-input-col {
+  position: absolute;
+  left: 50%;
+}
+
+form {
+  min-height: 12em;
+  margin-left: 33%;
+  width: 33%;
+  padding: 5px;
+  background: #c0a999;
+}
+
+.tested-browsers {
+  font-size: 70%;
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  text-align: center;
+  width: 100%;
+}
+
+/* from old homework */
+
+.center {
+  text-align: center;
+}
+
+table {
+  width: 33%;
+  margin-left: 33%;
+  border-collapse: collapse;
+}
+
+tr, td, th {        
+  border-collapse: collapse;
+}
+
+td {
+  max-width: 110px;
+  height: 85px;
+}
+
+td, th {
+  text-align: left;
+  padding: 8px;
+  border: 1px solid #ffffff;
+}
+
+tr:nth-child(odd) {
+  background-color: #99b0c0;
+}
+
+tr:nth-child(even) {
+  background-color: #c0a999;
+}
+
+h1 {
+  font-size: 200%;
+  margin: 10px;
+}
+
+p {
+  margin: 3px;
+}

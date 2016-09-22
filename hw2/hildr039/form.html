@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <title>Calendar Input</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div>
+      <h1 class="center title">Dalton Hildreth's Calendar</h1>
+      <nav>
+        <div class="nav-div">
+          <ul>
+            <li><a href="calendar.html">Calendar</a></li>
+            <li><a class="nav-current" href="form.html">Form</a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>  
+    <form method="get" action="http://www-users.cselabs.umn.edu/~sharm398/index.php">
+      <label>Event Name
+        <input class="form-input-col" name = "eventname" type="text" size="25" placeholder="Class" required/>
+      </label>
+      <label>Start Time
+        <input class="form-input-col" name = "starttime" type="time" size="25" required/>
+      </label>
+      <label>End Time
+        <input class="form-input-col" name = "endtime" type="time" size="25" required/>
+      </label>
+      <label>Location
+        <input class="form-input-col" name = "location" type="text" size="25" placeholder="Hall" required/>  
+      </label>
+      <label>Day of the week
+        <select class="form-input-col" name = "day">
+          <option value="Monday">Monday</option>
+          <option value="Tuesday">Tuesday</option>
+          <option value="Wednesday">Wednesday</option>
+          <option value="Thursday">Thursday</option>
+          <option value="Friday">Friday</option>
+        </select>
+      </label>
+      <input class="form-input-col" type = "submit" value="Submit" />
+    </form>
+    <div class = "tested-browsers">
+      <p class="center"><cite>This page has been tested in Google Chrome and Mozilla Firefox.</cite></p>
+    </div>
+  </body>
+</html>

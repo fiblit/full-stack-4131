@@ -1,0 +1,194 @@
+body {
+  margin: 0;
+  background-color: #222222;
+}
+
+.time {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 300%;
+  font-family: "Courier", monospace;
+  color: white;
+  font-weight: bold;
+}
+
+nav {
+  background: #00AA00;
+  margin: 5px 0px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  border-right: 3px solid #222222;
+  padding: 8px 8px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: #00AA00;
+  color: white;
+}
+
+nav ul li:first-child a {
+  border-left: 3px solid #222222;
+}
+
+nav ul li a:hover {
+  background: #00DD00
+}
+
+.nav-current {
+  background: #AA0000
+}
+
+.nav-current:hover {
+  background: #DD0000
+}
+
+.table-aligned-div {
+  position: relative;
+  width: 70%;
+  margin: auto;
+}
+
+.scroll-rtl {
+  display: inline;
+  color: white;
+  position: relative;
+  animation: mymove 30s infinite linear;
+  right: 0%;
+}
+
+@keyframes mymove {
+    from {left: 70%;}
+    /* rough estimate for when text should be off table :P */
+    to {left: -33.3333%;}
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.hide-scrolltext {
+  background: #222222;
+  /* the width of these is a pain to update, tried to make it easier, but CSS bugged out as usual */
+  width: 15%;
+  height: 1em;
+  position: relative;
+  left: 0;
+  z-index: 1;
+}
+
+.day-preview {
+  margin: 5px;
+  float: left;
+  display: block;
+  /*border: 1px solid white;
+  margin: 1px;
+  padding: 1px;*/
+  margin: 5px 0px;
+  padding: 0px;
+  width: 25%;
+}
+
+.dayofweek {
+  font-family: Arial;
+  font-size: 150%;
+  text-decoration: underline;
+  font-weight: bold;
+  color: white;
+}
+
+label {
+  display: block;
+  width: 30%;
+  margin: 8px 0px;
+  border-bottom: 2px dotted white;
+}
+
+.form-input-col {
+  position: absolute;
+  left: 50%;
+}
+
+form {
+  min-height: 12em;
+  padding: 5px;
+  background: #00AA00;
+  color: white;
+}
+
+.tested-browsers {
+  font-size: 70%;
+  position: relative;
+  width: 33.3333%;
+  margin: auto;
+  color: white;
+}
+
+.center {
+  text-align: center;
+}
+
+table {
+  width: 33.3333%;
+  margin: auto;
+  border-collapse: collapse;
+  color: white;
+}
+
+a {
+  color: blue;
+}
+
+tr, td, th {        
+  border-collapse: collapse;
+  border: 3px solid #FFFFFF;
+}
+
+td {
+  height: 85px;
+}
+
+td, th {
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(odd) {
+  background-color: #00AA00;
+}
+
+tr:nth-child(even) {
+  background-color: #AAAAAA;
+}
+
+th {
+  background: #DD0000;
+  max-width: 10px;
+}
+
+h1 {
+  font-size: 200%;
+  margin: 10px;
+}
+
+p {
+  margin: 3px;
+}

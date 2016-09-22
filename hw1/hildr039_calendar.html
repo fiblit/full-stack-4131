@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <title>Dalton Hildreth's Calendar</title>
+    <style>
+      .center {
+        text-align: center;
+      }
+      table {
+        margin: auto;
+        border-collapse: collapse;
+      }
+      
+      tr, td, th {        
+        border-collapse: collapse;
+      }
+
+      td, th {
+        text-align: left;
+        padding: 8px;
+        border: 1px solid #ffffff
+      }
+      
+      tr:nth-child(odd) {
+        background-color: #99b0c0;
+      }
+      
+      tr:nth-child(even) {
+        background-color: #c0a999;
+      }
+      
+      h1 {
+        font-size: 200%;
+        text-decoration: bold;
+        margin: 10px;
+      }
+      
+      p {
+        margin: 3px
+      }
+    </style>
+  </head>
+  <body>
+    <!-- I would've used a caption but the homework said "proper heading element", so I went with a heading -->
+    <h1 class="center">Dalton Hildreth's Calendar</h1>
+    <table>
+      <tr>
+        <th>Mon</th>                
+        <td></td>
+        <td>
+          <p><i>12:20-2:15 PM</i></p>
+          <p><a href="http://www.astro.umn.edu/courses/1001/" target="_blank">AST 1001</a> LAB - Appleby 102</p>
+        </td>        
+        <td></td>
+        <td>
+          <p><i>4:00-5:15 PM</i></p>
+          <p>CSCI 5115 - Akerman 319</p>
+        </td>
+      </tr>
+      <tr>
+        <th>Tue</th>
+        <td>
+          <p><i>9:45-11:00 AM</i></p>          
+          <p><a href="http://www.astro.umn.edu/courses/1001/" target="_blank">AST 1001</a> - Anderson 210</p>
+        </td>
+        <td>
+          <p><i>11:15-12:05 PM</i></p>
+          <p>CSE 1001 - Bruininks 512A</p>
+        </td>
+        <td>
+          <p><i>2:30-3:45 PM</i></p>
+          <p>CSCI 4131 - Bruininks 230</p>
+        </td>
+        <td>
+          <p><i>4:00-5:15 PM</i></p>
+          <p>CSCI 4511W - Bruininks 312</p>
+        </td>
+      </tr>
+      <tr>
+        <th>Wed</th>        
+        <td colspan="3"></td>
+        <td>
+          <p><i>4:00-5:15 PM</i></p>
+          <p>CSCI 5115 - Akerman 319</p>
+        </td>
+      </tr>
+      <tr>
+        <th>Thu</th>
+        <td>
+          <p><i>9:45-11:00 AM</i></p>
+          <p><a href="http://www.astro.umn.edu/courses/1001/" target="_blank">AST 1001</a> - Anderson 210</p>
+        </td>                
+        <td></td>
+        <td>
+          <p><i>2:30-3:45 PM</i></p>
+          <p>CSCI 4131 - Bruininks 230</p>
+        </td>
+        <td>
+          <p><i>4:00-5:15 PM</i></p>
+          <p>CSCI 4511W - Bruininks 312</p>
+        </td>
+      </tr>
+      <tr>
+        <th>Fri</th>
+        <!-- the three breaks are to keep this row the same height as the others -->
+        <td colspan="4"><br><br><br></td>
+      </tr>
+    </table>
+    <p class="center"><cite>This page has been tested in Google Chrome and Mozilla Firefox. Although, it looks better in Chrome.</cite></p>
+  </body>
+</html>
+
