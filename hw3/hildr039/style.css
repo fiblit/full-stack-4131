@@ -31,9 +31,10 @@ nav ul li {
   float: left;
 }
 
-nav ul li a {
+.nav-tab {
+  border-left: 0px;
   border-right: 3px solid #222222;
-  padding: 8px 8px;
+  padding: 8px;
   display: block;
   text-align: center;
   text-decoration: none;
@@ -41,11 +42,11 @@ nav ul li a {
   color: white;
 }
 
-nav ul li:first-child a {
+nav ul li:first-child .nav-tab {
   border-left: 3px solid #222222;
 }
 
-nav ul li a:hover {
+.nav-tab:hover {
   background: #00DD00
 }
 

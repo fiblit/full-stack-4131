@@ -19,11 +19,8 @@ if (todaysEvents.length > 0) {
   for (i = 0; i < todaysEvents.length; i++) {
     var j;
     for (j = 0; j < todaysEvents[i].children.length; j++) {
-      console.log(todaysEvents[i].children[j].innerText.toString());
       eventText = eventText.concat(todaysEvents[i].children[j].innerText.toString().concat(". "));
     }
-    console.log(eventText);
-    console.log(todaysEvents);
     if (i < todaysEvents.length - 1) {
       eventText = eventText.concat("-/- ");
     }
