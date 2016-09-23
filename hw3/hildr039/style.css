@@ -72,27 +72,35 @@ nav ul li a:hover {
 }
 
 @keyframes mymove {
-    from {left: 70%;}
+    from {left: 100%;}
     /* rough estimate for when text should be off table :P */
-    to {left: -33.3333%;}
+    to {left: -100%;}
 }
 
 .left {
-  float: left;
+  /*float: left;*/
+  left: 0;
 }
 
 .right {
-  float: right;
+  /*float: right;*/
+  top: 0;
+  right: 0;
 }
 
 .hide-scrolltext {
   background: #222222;
   /* the width of these is a pain to update, tried to make it easier, but CSS bugged out as usual */
   width: 15%;
-  height: 1em;
-  position: relative;
-  left: 0;
+  height: 1.1em;
+  position: absolute;
   z-index: 1;
+}
+
+.clip {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .day-preview {
@@ -181,7 +189,6 @@ tr:nth-child(even) {
 
 th {
   background: #DD0000;
-  max-width: 10px;
 }
 
 h1 {
