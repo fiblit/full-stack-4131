@@ -6,23 +6,32 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div>
+    <header>
+      <div class="advert">
+        <a id = "advert-link" target="_blank">
+          <img id ="advert-image" src="Images\Nerve.jpg" alt="hi">
+        </a>
+      </div>
+      
+      
       <h1 class="center title">Dalton Hildreth's Calendar</h1>
       <nav>
         <div class="table-aligned-div">
           <ul>
-            <li><input type="button" class = "nav-tab nav-current calendar" value="Calendar" onClick="calendarButton()"></li>
-            <li><input type="button" class = "nav-tab form-button" value="Form" onClick="formButton()"></li>
+            <li><button type="button" class = "nav-tab nav-current calendar" onClick="calendarButton()">Calendar</button></li>
+            <li><button type="button" class = "nav-tab form-button" onClick="formButton()">Form</button></li>
           </ul>
         </div>
       </nav>
+      
+      <script src="nav.js"></script>
+      
       <div class="clip">
         <div class="left hide-scrolltext"></div>
-        <!-- The below will be dynamically filled in -->
-        <p class="days-events scroll-rtl table-aligned-div">a</p>
+        <p class="days-events scroll-rtl table-aligned-div"><!-- This will be dynamically filled in --></p>
         <div class="right hide-scrolltext"></div>
       </div>
-    </div>    
+    </header>    
     <table class="table-aligned-div">
         <tbody>
         <tr>
@@ -101,13 +110,13 @@
       <p class="center"><cite>This page has been tested in Google Chrome, Mozilla Firefox, and Internet Explorer. Typically at 1920x1080p.</cite></p>
     </div>
     <div class ="table-aligned-div">
-      <img class ="day-preview" src="appleby.jpg" alt="appleby">
-      <img class ="day-preview" src="akerman.jpg" alt="akerman">
-      <img class ="day-preview" src="bruininks.jpg" alt="bruininks">
-      <img class ="day-preview" src="anderson.jpg" alt="anderson">
+      <img class ="day-preview" src="Images\appleby.jpg" alt="appleby">
+      <img class ="day-preview" src="Images\akerman.jpg" alt="akerman">
+      <img class ="day-preview" src="Images\bruininks.jpg" alt="bruininks">
+      <img class ="day-preview" src="Images\anderson.jpg" alt="anderson">
     </div>
     
+    <script src="adverts.js"></script>
     <script src="calendar.js"></script>
-    <script src="nav.js"></script>
   </body>
 </html>

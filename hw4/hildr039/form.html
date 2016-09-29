@@ -6,17 +6,28 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <div>
+    <header>
+      <div class="advert">
+        <a id = "advert-link" target="_blank">
+          <img id ="advert-image" >
+        </a>
+      </div>
+      
+      <script src="adverts.js"></script>
+      
       <h1 class="center title">Dalton Hildreth's Calendar</h1>
       <nav>
         <div class="table-aligned-div">
           <ul>
-            <li><input type="button" class = "nav-tab calendar-button" value="Calendar" onClick="calendarButton()"></li>
-            <li><input type="button" class = "nav-tab nav-current form-button" value="Form" onClick="formButton()"></li>
+            <li><button type="button" class = "nav-tab calendar-button" onClick="calendarButton()">Calendar</button></li>
+            <li><button type="button" class = "nav-tab nav-current form-button" onClick="formButton()">Form</button></li>
           </ul>
         </div>
       </nav>
-    </div>
+      
+      <script src="nav.js"></script>
+      
+    </header>
     <div class="table-aligned-div">
       <form method="get" action="http://www-users.cselabs.umn.edu/~sharm398/index.php">
         <label>Event Name
@@ -46,7 +57,5 @@
     <div class = "tested-browsers">
       <p class="center"><cite>This page has been tested in Google Chrome, Mozilla Firefox, and Internet Explorer. Typically at 1920x1080p.</cite></p>
     </div>
-    
-    <script src="nav.js"></script>
   </body>
 </html>
