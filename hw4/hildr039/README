@@ -3,5 +3,6 @@ Name: Dalton Hildreth
 x500: hildr039
 
 1) The Images folder needs to be there. I wanted to clean up the directory, so I put all the images in a sub-directory.
+
 2) I generalized my javascript so that I can add as many advertisements as I want
 and still have expected functionality.
