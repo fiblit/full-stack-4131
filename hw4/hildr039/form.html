@@ -7,20 +7,23 @@
   </head>
   <body>
     <header>
-      <div id="advert">
-        <button type = "button" id="prev-button">
-          <img src="Images/prev_blue.png" alt="prev-inactive">
-        </button>
-        <a id = "advert-link" target="_blank">
-          <img id ="advert-image" >
-        </a>
-        <button type = "button" id="next-button">
-          <img src="Images/next_blue.png" alt="next-inactive">
-        </button>
-        <div>
-          <!--- buttons below -->
+      <div class="container">
+        <div id="advert">
+          <button type = "button" class="ad-button" id="prev-button">
+            <img src="Images/prev_blue.png" alt="prev_blue">
+          </button>
+          <a id = "advert-link" target="_blank">
+            <img id ="advert-image" >
+          </a>
+          <button type = "button" class="ad-button" id="next-button">
+            <img src="Images/next_blue.png" alt="next_blue">
+          </button>
+          <div class="container">
+            <div id="bullets">              
+              <!-- I should try to get JS to write in the correct number of button-tabs dynamically -->
+            </div>
+          </div>
         </div>
-        
       </div>
       
       <script src="adverts.js"></script>
@@ -65,7 +68,7 @@
       </form>
     </div>
     <div class = "tested-browsers">
-      <p class="center"><cite>This page has been tested in Google Chrome, Mozilla Firefox, and Internet Explorer. Typically at 1920x1080p.</cite></p>
+      <p class="center"><cite>This page has been tested in Google Chrome, Mozilla Firefox, and Internet Explorer. Typically at 1920x1080p or 1366x768p.</cite></p>
     </div>
   </body>
 </html>

@@ -2,4 +2,5 @@
 Dalton Hildreth
 hildr039
 
-It works, but it ain't pretty. :P
+I generalized my javascript so that I can add as many advertisements as I want
+and still have expected functionality.

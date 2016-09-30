@@ -3,25 +3,32 @@ body {
   background-color: #222222;
 }
 
-#prev-button {
+.container {
+  position: relative;
+}
+
+.ad-button {
   background: 0;
   border: 0;
+  padding: 0;
+  margin: 3px;
+  display: inline-block;
+}
+
+#prev-button, #next-button {
+  position: relative;
+  bottom: 125px;
+}
+
+#advert, #bullets {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 #advert-link {
-  display: block;
-  /* width of advert-image */
-  width: 800px;
-  margin: auto;
-}
-
-#next-button {
-  background: 0;
-  border: 0;
-}
-
-#advert-image { 
-  display: block;
+  display: inline-block;
 }
 
 .title {
