@@ -3,9 +3,25 @@ body {
   background-color: #222222;
 }
 
-.time {
-  font-style: italic;
-  font-weight: bold;
+#prev-button {
+  background: 0;
+  border: 0;
+}
+
+#advert-link {
+  display: block;
+  /* width of advert-image */
+  width: 800px;
+  margin: auto;
+}
+
+#next-button {
+  background: 0;
+  border: 0;
+}
+
+#advert-image { 
+  display: block;
 }
 
 .title {
@@ -102,6 +118,11 @@ nav ul li:first-child .nav-tab {
   position: relative;
   white-space: nowrap;
   overflow: hidden;
+}
+
+.time {
+  font-style: italic;
+  font-weight: bold;
 }
 
 .day-preview {
