@@ -1,0 +1,259 @@
+body {
+  margin: 0;
+  background-color: #222222;
+}
+
+header {
+  margin-top: 15px;
+}
+
+.container {
+  position: relative;
+}
+
+.ad-button {
+  background: 0;
+  border: 0;
+  padding: 0;
+  margin: 3px;
+  display: inline-block;
+}
+
+#prev-button, #next-button {
+  position: relative;
+  bottom: 125px;
+}
+
+#advert, #bullets {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#advert-link {
+  display: inline-block;
+}
+
+.title {
+  font-size: 300%;
+  font-family: "Courier", monospace;
+  color: white;
+  font-weight: bold;
+}
+
+nav {
+  background: #00AA00;
+  margin: 5px 0px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+nav ul li {
+  float: left;
+}
+
+.nav-tab {
+  border-left: 0px;
+  border-right: 3px solid #222222;
+  padding: 8px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: #00AA00;
+  color: white;
+}
+
+nav ul li:first-child .nav-tab {
+  border-left: 3px solid #222222;
+}
+
+.nav-tab:hover {
+  background: #00DD00
+}
+
+.nav-current {
+  background: #AA0000
+}
+
+.nav-current:hover {
+  background: #DD0000
+}
+
+.table-aligned-div {
+  position: relative;
+  width: 70%;
+  margin: auto;
+}
+
+.scroll-rtl {
+  display: inline;
+  color: white;
+  position: relative;
+  animation: mymove 30s infinite linear;
+  right: 0%;
+}
+
+@keyframes mymove {
+    from {left: 100%;}
+    /* rough estimate for when text should be off table :P */
+    to {left: -100%;}
+}
+
+.left {
+  /*float: left;*/
+  left: 0;
+}
+
+.right {
+  /*float: right;*/
+  top: 0;
+  right: 0;
+}
+
+.hide-scrolltext {
+  background: #222222;
+  /* the width of these is a pain to update, tried to make it easier, but CSS bugged out as usual */
+  width: 15%;
+  height: 1.1em;
+  position: absolute;
+  z-index: 1;
+}
+
+.clip {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.time {
+  font-style: italic;
+  font-weight: bold;
+}
+
+.day-preview {
+  margin: 5px;
+  float: left;
+  display: block;
+  /*border: 1px solid white;
+  margin: 1px;
+  padding: 1px;*/
+  margin: 5px 0px;
+  padding: 0px;
+  width: 25%;
+}
+
+.dayofweek {
+  font-family: Arial;
+  font-size: 150%;
+  text-decoration: underline;
+  font-weight: bold;
+  color: white;
+}
+
+label {
+  display: block;
+  width: 33%;
+  margin: 8px 0px;
+  border-bottom: 2px dotted white;
+}
+
+.form-input-col {
+  position: absolute;
+  left: 50%;
+}
+
+form {
+  min-height: 12em;
+  display: block;
+  padding: 0px 5px;
+  background: #00AA00;
+  color: white;
+}
+
+.calendar-form {
+  min-height: 0em;
+  margin: 5px 0px;
+  padding: 1px 5px;
+}
+.calendar-form-item {
+  position:relative;
+  margin: 8px 0px;
+}
+.calendar-form-col {
+  display:inline-block;
+}
+.calendar-label {
+  margin: 0px 0px;
+}
+.calendar-form-rcol {
+  position:absolute;
+  left:50%;
+}
+
+.map {
+  height: 400px;
+}
+
+.tested-browsers {
+  font-size: 70%;
+  position: relative;
+  width: 33.3333%;
+  margin: auto;
+  color: white;
+}
+
+.center {
+  text-align: center;
+}
+
+table {
+  width: 33.3333%;
+  margin: auto;
+  border-collapse: collapse;
+  color: white;
+}
+
+a {
+  color: blue;
+}
+
+tr, td, th {        
+  border-collapse: collapse;
+  border: 3px solid #FFFFFF;
+}
+
+td {
+  height: 85px;
+}
+
+td, th {
+  text-align: center;
+  padding: 8px;
+}
+
+tr:nth-child(odd) {
+  background-color: #00AA00;
+}
+
+tr:nth-child(even) {
+  background-color: #AAAAAA;
+}
+
+th {
+  background: #DD0000;
+}
+
+h1 {
+  font-size: 200%;
+  margin: 10px;
+}
+
+p {
+  margin: 3px;
+}
