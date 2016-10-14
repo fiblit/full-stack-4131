@@ -148,6 +148,20 @@ nav ul li:first-child .nav-tab {
   width: 25%;
 }
 
+/* these next two are always in binary complement */
+.table-preview {
+  visibility: hidden;  
+  width: 50%;
+  display: block;
+}
+
+.table-preview-hover {
+  margin: auto;
+  width: 50%;
+  visibility: visible;
+  display: block;
+}
+
 .dayofweek {
   font-family: Arial;
   font-size: 150%;
@@ -202,9 +216,7 @@ form {
 
 .tested-browsers {
   font-size: 70%;
-  position: relative;
-  width: 33.3333%;
-  margin: auto;
+  min-height: 2em;
   color: white;
 }
 
