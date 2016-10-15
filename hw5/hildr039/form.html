@@ -41,7 +41,7 @@
       <script src="nav.js"></script>
       
     </header>
-    <!-- TODO: refactor the form to be like the calendar's form, for styling/maintentence purposes -->
+    <!-- TODO: refactor to be more maintainable -->
     <div class="table-aligned-div">
       <form method="get" action="http://www-users.cselabs.umn.edu/~sharm398/index.php">
         <label>Event Name
@@ -52,7 +52,8 @@
         </label>
         <label>End Time
           <input class="form-input-col" name = "endtime" type="time" size="25" required/>
-        </label>
+        </label>        
+        <input class="form-input-col" type = "submit" value="Submit" />
         <label>Location
           <input class="form-input-col" name = "location" type="text" size="25" placeholder="Hall" required/>  
         </label>
@@ -65,7 +66,13 @@
             <option value="Friday">Friday</option>
           </select>
         </label>
-        <input class="form-input-col" type = "submit" value="Submit" />
+        <div class="calendar-form-item">
+          <div class="calendar-form-col">
+            <div class="calendar-form-rcol">
+             <input class="form-input-col" type = "submit" value="Submit" />
+            </div>
+          </div>
+        </div>
       </form>
     </div>
     <div class = "tested-browsers">

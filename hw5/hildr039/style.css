@@ -136,6 +136,10 @@ nav ul li:first-child .nav-tab {
   font-weight: bold;
 }
 
+.coord {
+  display: none;
+}
+
 /* these next two are always in binary complement */
 .table-preview {
   visibility: hidden;  
@@ -171,18 +175,13 @@ label {
 }
 
 form {
-  min-height: 12em;
   display: block;
-  padding: 0px 5px;
+  padding: 1px 5px;  
+  margin: 5px 0px;
   background: #00AA00;
   color: white;
 }
 
-.calendar-form {
-  min-height: 0em;
-  margin: 5px 0px;
-  padding: 1px 5px;
-}
 .calendar-form-item {
   position:relative;
   margin: 8px 0px;
@@ -196,6 +195,7 @@ form {
 .calendar-form-rcol {
   position:absolute;
   left:50%;
+  top: 0;
 }
 
 .map {

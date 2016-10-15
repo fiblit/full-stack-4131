@@ -36,6 +36,7 @@
               <p class="event"><a href="http://homepages.spa.umn.edu/~priewe/ast_1001.html" target="_blank">AST 1001 LAB</a></p>
               <p class="loc"><a href="https://campusmaps.umn.edu/appleby-hall" target="_blank">Appleby 102</a></p>
               <img class="table-preview" src="Images/appleby.jpg" alt="appleby">
+              <span class="coord">44.9749159 -93.2373333</span>
             </div>
           </td>        
           <td></td>
@@ -44,6 +45,7 @@
             <p class="event"><a href="https://ay16.moodle.umn.edu/course/view.php?id=6745" target="_blank">CSCI 5115</a></p>
             <p class="loc"><a href="https://campusmaps.umn.edu/akerman-hall" target="_blank">Akerman 319</a></p>
             <img class="table-preview" src="Images/akerman.jpg" alt="akerman">
+            <span class="coord">44.9754061 -93.2323157</span>
           </td>
         </tr>
         <tr>
@@ -53,24 +55,28 @@
             <p class="event"><a href="http://www.astro.umn.edu/courses/1001/" target="_blank">AST 1001</a>
             <p class="loc"><a href="http://campusmaps.umn.edu/anderson-hall" target="_blank">Anderson 210</a></p>
             <img class="table-preview" src="Images/anderson.jpg" alt="anderson">
+            <span class="coord">44.9719622 -93.2422966</span>
           </td>
           <td class="event-data">
             <p class="time">11:15-12:05 PM</p>
             <p class="event"><a href="https://ay16.moodle.umn.edu/course/view.php?id=3748" target="_blank">CSE 1001</a></p>
             <p class="loc"><a href="https://campusmaps.umn.edu/robert-h-bruininks-hall" target="_blank">Bruininks 512A</a></p>
             <img class="table-preview" src="Images/bruininks.jpg" alt="bruininks">
+            <span class="coord">44.9740918 -93.2372935</span>
           </td>
           <td class="event-data">
             <p class="time">2:30-3:45 PM</p>
             <p class="event"><a href="https://ay16.moodle.umn.edu/course/view.php?id=6745" target="_blank">CSCI 4131</a></p>
             <p class="loc"><a href="https://campusmaps.umn.edu/robert-h-bruininks-hall" target="_blank">Bruininks 230</a></p>
             <img class="table-preview" src="Images/bruininks.jpg" alt="bruininks">
+            <span class="coord">44.9740918 -93.2372935</span>
           </td>
           <td class="event-data">
             <p class="time">4:00-5:15 PM</p>
             <p class="event"><a href="https://ay16.moodle.umn.edu/course/view.php?id=3837" target="_blank">CSCI 4511W</a></p>
             <p class="loc"><a href="https://campusmaps.umn.edu/robert-h-bruininks-hall" target="_blank">Bruininks 312</a></p>
             <img class="table-preview" src="Images/bruininks.jpg" alt="bruininks">
+            <span class="coord">44.9740918 -93.2372935</span>
           </td>
         </tr>
         <tr>
@@ -81,6 +87,7 @@
             <p class="event"><a href="https://ay16.moodle.umn.edu/course/view.php?id=6745" target="_blank">CSCI 5115</a></p>
             <p class="loc"><a href="https://campusmaps.umn.edu/akerman-hall" target="_blank">Akerman 319</a></p>
             <img class="table-preview" src="Images/akerman.jpg" alt="akerman">
+            <span class="coord">44.9754061 -93.2323157</span>
           </td>
         </tr>
         <tr>
@@ -90,6 +97,7 @@
             <p class="event"><a href="http://www.astro.umn.edu/courses/1001/" target="_blank">AST 1001</a></p>
             <p class="loc"><a href="http://campusmaps.umn.edu/anderson-hall" target="_blank">Anderson 210</a></p>
             <img class="table-preview" src="Images/anderson.jpg" alt="anderson">
+            <span class="coord">44.9719622 -93.2422966</span>
           </td>                
           <td></td>
           <td class="event-data">
@@ -97,12 +105,14 @@
             <p class="event"><a href="https://ay16.moodle.umn.edu/course/view.php?id=6745" target="_blank">CSCI 4131</a></p>
             <p class="loc"><a href="https://campusmaps.umn.edu/robert-h-bruininks-hall" target="_blank">Bruininks 230</a></p>
             <img class="table-preview" src="Images/bruininks.jpg" alt="bruininks">
+            <span class="coord">44.9740918 -93.2372935</span>
           </td>
           <td class="event-data">
             <p class="time">4:00-5:15 PM</p>
             <p class="event"><a href="https://ay16.moodle.umn.edu/course/view.php?id=3837" target="_blank">CSCI 4511W</a></p>
             <p class="loc"><a href="https://campusmaps.umn.edu/robert-h-bruininks-hall" target="_blank">Bruininks 312</a></p>
             <img class="table-preview" src="Images/bruininks.jpg" alt="bruininks">
+            <span class="coord">44.9740918 -93.2372935</span>
           </td>
         </tr>
         <tr>
@@ -112,23 +122,26 @@
       </tbody>
     </table>
     <div class="table-aligned-div">
-      <form class = "calendar-form">
+      <form>
         <div class="calendar-form-item">
           <label class="calendar-form-col calendar-label">Address</label>
-          <div class="calendar-form-col calendar-form-rcol">
-            <input id = "address" name = "address" type="text" size="25" placeholder="Keller Hall, MN" required/>          
-            <!-- TODO: Javascript for submit/button -->
-            <input id = "geocode" type = "button" value="Submit" /> <!-- might need to be a button not input -->
+          <div class="calendar-form-col">
+            <div class="calendar-form-rcol">
+              <input id = "address" name = "address" type="text" size="25" placeholder="Keller Hall, MN" required/>
+              <input id = "geocode" type = "button" value="Submit" /> <!-- might need to be a button not input -->
+            </div>
           </div>
         </div>
       </form>
-      <form class = "calendar-form">
+      <form>
         <div class="calendar-form-item">
           <label class="calendar-form-col calendar-label">Radius between 500 and 50,000</label>        
-          <div class="calendar-form-col calendar-form-rcol">
-             <input name = "radius" type="number" placeholder="500" min="500" max="50000" required/>
-             <!-- TODO: Javascript for submit/button -->    
-             <input type = "button" value="Find Nearby Restaurants" /> <!-- might need to be a button not input -->
+          <div class="calendar-form-col">
+            <div class ="calendar-form-rcol">
+              <input name = "radius" type="number" placeholder="500" min="500" max="50000" required/>
+              <!-- TODO: Javascript for restaurant button -->    
+              <input type = "button" value="Find Nearby Restaurants" /> <!-- might need to be a button not input -->
+            </div>
           </div>
         </div>
       </form>
@@ -154,8 +167,7 @@
     </div>
 
     <script src="map.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap" type="text/javascript">
-    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap" type="text/javascript"></script>
     <script src="calendar.js"></script>
   </body>
 </html>
