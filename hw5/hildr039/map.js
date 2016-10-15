@@ -23,6 +23,7 @@ function initMarkers(map) {
     });
 
     var marker = new google.maps.Marker({
+      animation: google.maps.Animation.BOUNCE,
       position: data[i].coord,
       map: map
     });
