@@ -136,18 +136,6 @@ nav ul li:first-child .nav-tab {
   font-weight: bold;
 }
 
-.day-preview {
-  margin: 5px;
-  float: left;
-  display: block;
-  /*border: 1px solid white;
-  margin: 1px;
-  padding: 1px;*/
-  margin: 5px 0px;
-  padding: 0px;
-  width: 25%;
-}
-
 /* these next two are always in binary complement */
 .table-preview {
   visibility: hidden;  
