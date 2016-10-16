@@ -50,7 +50,7 @@ function initMap() {
           console.error(status);
           return;
         }
-        infowindow.setContent(result.name);
+        infowindow.setContent("<p><b>"+ result.name +"</b></p>" + "<p>" + result.formatted_address + "</p>");
         infowindow.open(map, marker);
       });
     });
@@ -132,6 +132,16 @@ function geocodeAddress(geocoder, resultsMap) {
         map: resultsMap,
         position: results[0].geometry.location
       });
+
+      console.log(results);
+      var infowindow = new google.maps.InfoWindow({
+        content: results[0].formatted_address
+      });
+      marker.addListener('click', function(map, marker, infowindow) { 
+        return function() {
+          infowindow.open(map, marker);
+        }
+      }(map, marker, infowindow));
     } else {
       alert('Geocode was not successful for the following reason: ' + status);
     }
