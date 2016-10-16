@@ -142,8 +142,8 @@ nav ul li:first-child .nav-tab {
 
 /* these next two are always in binary complement */
 .table-preview {
-  visibility: hidden;  
-  width: 50%;
+  visibility: hidden;
+  width: 50%;  
   display: block;
 }
 

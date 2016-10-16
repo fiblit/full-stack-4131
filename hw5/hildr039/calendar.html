@@ -31,13 +31,11 @@
           <th><span class="dayofweek">Mon</span></th>                
           <td></td>
           <td class="event-data">
-            <div>
-              <p class="time">12:20-2:15 PM</p>
-              <p class="event"><a href="http://homepages.spa.umn.edu/~priewe/ast_1001.html" target="_blank">AST 1001 LAB</a></p>
-              <p class="loc"><a href="https://campusmaps.umn.edu/appleby-hall" target="_blank">Appleby 102</a></p>
-              <img class="table-preview" src="Images/appleby.jpg" alt="appleby">
-              <span class="coord">44.9749159 -93.2373333</span>
-            </div>
+            <p class="time">12:20-2:15 PM</p>
+            <p class="event"><a href="http://homepages.spa.umn.edu/~priewe/ast_1001.html" target="_blank">AST 1001 LAB</a></p>
+            <p class="loc"><a href="https://campusmaps.umn.edu/appleby-hall" target="_blank">Appleby 102</a></p>
+            <img class="table-preview" src="Images/appleby.jpg" alt="appleby">
+            <span class="coord">44.9749159 -93.2373333</span>
           </td>        
           <td></td>
           <td class="event-data">
@@ -138,9 +136,9 @@
           <label class="calendar-form-col calendar-label">Radius between 500 and 50,000</label>        
           <div class="calendar-form-col">
             <div class ="calendar-form-rcol">
-              <input name = "radius" type="number" placeholder="500" min="500" max="50000" required/>
+              <input id = "radius" name = "radius" type="number" placeholder="500" min="500" max="50000" required/>
               <!-- TODO: Javascript for restaurant button -->    
-              <input type = "button" value="Find Nearby Restaurants" /> <!-- might need to be a button not input -->
+              <input id = "find" type = "button" value="Find Nearby Restaurants" /> <!-- might need to be a button not input -->
             </div>
           </div>
         </div>
@@ -167,7 +165,7 @@
     </div>
 
     <script src="map.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap" type="text/javascript"></script>
+    <script type="text/javascript" async defer src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap&libraries=places"></script>
     <script src="calendar.js"></script>
   </body>
 </html>

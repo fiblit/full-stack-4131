@@ -1,19 +1,65 @@
 /* Some of the following code was modified from this: 
 https://developers.google.com/maps/documentation/javascript/examples/geocoding-simple 
 */
+
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     zoom: 15,
     center: {lat: 44.973, lng: -93.234}
   });
-  var geocoder = new google.maps.Geocoder();
 
+  var geocoder = new google.maps.Geocoder();
   document.getElementById('geocode').addEventListener('click', function() {
     geocodeAddress(geocoder, map);
   });
 
+
+  var service = new google.maps.places.PlacesService(map);
+  document.getElementById('find').addEventListener('click', function () {
+    service.radarSearch({
+      location: map.center,
+      radius: document.getElementById('radius').value,
+      type: ['restaurant']
+    }, placeCallback);
+  });
+
+  /* the next two functions were modified from here: 
+  https://developers.google.com/maps/documentation/javascript/examples/place-search
+  https://developers.google.com/maps/documentation/javascript/places#radar_search_requests
+  */
+  function placeCallback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        createRestaurant(results[i]);
+      }
+    }
+  }
+
+  function createRestaurant(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    google.maps.event.addListener(marker, 'click', function() {
+      service.getDetails(place, function(result, status) {
+        if (status !== google.maps.places.PlacesServiceStatus.OK) {
+          console.error(status);
+          return;
+        }
+        infowindow.setContent(result.name);
+        infowindow.open(map, marker);
+      });
+    });
+  }
+
   initMarkers(map);  
 }
+
+
 
 function initMarkers(map) {
   data = getBuildingData();
@@ -27,7 +73,6 @@ function initMarkers(map) {
       position: data[i].coord,
       map: map
     });
-    infowindow.open(map, marker);
     marker.addListener('click', function(map, marker, infowindow) { 
       return function() {
         infowindow.open(map, marker);

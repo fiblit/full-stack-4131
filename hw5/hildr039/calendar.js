@@ -38,7 +38,7 @@ function extractTodaysEvents(){
 function addImageHover() {
   entries = document.getElementsByClassName("event-data")
   for (i = 0; i < entries.length; i++) {
-    entries[i].addEventListener("mouseover", function(self) {
+    entries[i].getElementsByClassName("loc")[0].addEventListener("mouseover", function(self) {
       return function() {
         imgs = self.getElementsByClassName("table-preview");
         if (imgs.length > 0) {
@@ -47,7 +47,7 @@ function addImageHover() {
       };
     }(entries[i]));
 
-    entries[i].addEventListener("mouseout", function(self) {
+    entries[i].getElementsByClassName("loc")[0].addEventListener("mouseout", function(self) {
       return function() {
         imgs = self.getElementsByClassName("table-preview-hover");
         if (imgs.length > 0) {
