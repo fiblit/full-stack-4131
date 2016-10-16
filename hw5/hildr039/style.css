@@ -136,7 +136,7 @@ nav ul li:first-child .nav-tab {
   font-weight: bold;
 }
 
-.coord {
+.hidden-data {
   display: none;
 }
 
@@ -199,7 +199,7 @@ form {
 }
 
 .map {
-  height: 400px;
+  height: 500px;
 }
 
 .tested-browsers {

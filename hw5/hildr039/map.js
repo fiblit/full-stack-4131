@@ -86,9 +86,8 @@ function getBuildingData() {
   var data = [];
   for (var i = 0; i < entries.length; i++) {
     var event = entries[i].getElementsByClassName("event")[0].innerText;
-    var build = entries[i].getElementsByClassName("loc")[0].innerText;
-    var info = "<p><b>" + event + "</b></p>" +
-    "<p>" + build + "</p>";
+    var loc = entries[i].getElementsByClassName("loc")[0].innerText;
+    var info = "<p><i>" + event + "</i> - " + loc;
 
     var coordLatLng = entries[i].getElementsByClassName("coord")[0].innerText.split(" ");
     var coord = {lat: Number(coordLatLng[0]), lng: Number(coordLatLng[1])};
@@ -111,7 +110,10 @@ function getBuildingData() {
       }
     }
     if (!hasCoord) {
-      data.push({coord: coord, info: [info]});
+      var building = "<p><b>"+ entries[i].getElementsByClassName("building")[0].innerText + "</b></p>";
+      data.push({coord: coord, info: [building]});
+      data[data.length-1].info.push(info);
+      //data.push({coord: coord, info: [info]});
     }
   }
   for (var d = 0; d < data.length; d++) {
