@@ -89,28 +89,17 @@ def searchByTypeForFiletypesOfURL(URL):
 			types += [URLtype]
 	return types
 
-#deprecated
-# def searchByDirForFiletypesOfURL(URL):
-# 	types = []
-# 	URLtype = URL.rpartition('.')[2]
-# 	(name,ignore,ldir) = URL.rpartition('/')
-# 	name = name.rpartition('.')[2]
-# 	# for each (actual) file in ldir
-# 	for item in os.listdir(ldir):
-# 		if os.path.isfile(ldir+item):
-# 			part = item.partition('.')
-# 			if part[0] == name and (URLtype == '' or URLtype == part[2]):
-# 				types += [part[2]]#store type
-# 	return types
-
 def processResponse(file, header, method):
 	if method == 'GET': 
 		f = open(file,'r')
 		result = header + CRLF
-		for line in f:
-			result += line.rstrip() + CRLF
-		f.close()
-		return result
+		if file.rpartition('.')[2] in ["html"]:
+			for line in f:
+				result += line.rstrip() + CRLF
+			f.close()
+			return result
+		else:
+			return result + file + CRLF
 	elif method == 'HEAD':
 		return header+CRLF+CRLF
 	else:
@@ -149,7 +138,9 @@ def processRequest(requestMsg):
 			return HTTPcode['406']\
 			+"Content-type: "+str.join(', ',[MIMEtype[t] for t in existingTypes])+CRLF+CRLF
 
-#determine redirect?
+	if URL.partition('/')[2] == 'csumn':
+		return HTTPcode['301']\
+		+"Location: https://www.cs.umn.edu/"+CRLF+CRLF
 
 	return processResponse(URL, HTTPcode['200'], method)
 
