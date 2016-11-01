@@ -150,11 +150,16 @@ def processRequest(requestMsg):
 
 def client_talk(client_sock, client_addr):
 	print('talking to {}'.format(client_addr))
-	data = client_sock.recv(BUFSIZE)
-	while data:
+	data = client_sock.recv(BUFSIZE).decode('utf-8')
+	blanklines= 0
+	req = ''
+	while blanklines < 2:
 	# note, here is where you decode the data and process the request
-		req += data.decode('utf-8')
-		data = client_sock.recv(BUFSIZE)
+		for l in data.split('\r\n')[:-1]:
+			if l == '':
+				blanklines += 1
+		req += data
+		data = client_sock.recv(BUFSIZE).decode('utf-8')
 	# then, you'll need a routine to process the data, and formulate a response
 	response = processRequest(req) 
 	print(response)
