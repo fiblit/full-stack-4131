@@ -144,9 +144,6 @@ def processRequest(requestMsg):
 
 	return processResponse(URL, HTTPcode['200'], method)
 
-
-
-
 def client_talk(client_sock, client_addr):
 	print('talking to {}'.format(client_addr))
 	data = client_sock.recv(BUFSIZE)
