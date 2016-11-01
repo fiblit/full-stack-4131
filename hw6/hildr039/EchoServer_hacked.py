@@ -109,12 +109,13 @@ def processRequest(requestMsg):
 	requestLine = lines[0] #assume the requestLine exists/worked
 	del lines[0]
 	(method, URL, version) = requestLine.split(' ')
+	URLtype = URL.rpartition('.')[2]
 	if URL[0] == '/':
 		URL = '.' + URL
 	version = version.rstrip()
 
 	#URL(.*) doesn't exist
-	existingTypes = searchByTypeForFilesOfURL(URL)
+	existingTypes = searchByTypeForFiletypesOfURL(URL)
 	if existingTypes == []:
 		return HTTPcode['404']#send HTTP 404
 
@@ -123,22 +124,22 @@ def processRequest(requestMsg):
 		return HTTPcode['403']#send HTTP 403
 
 	(lines, headers) = processHeaders(lines)
-	if headers['accept'] == None:
+	if 'accept' not in headers:
 		headers['accept'] = []
-	if existingTypes not in headers['accept']:
+	if existingTypes not in headers['accept'] or existingTypes[0] != URLtype:
 		#send HTTP 406 with feasible types for "content-type:"
-		return HTTPcode['406']+\
+		return HTTPcode['406']\
 		+"Content-type: "+str.join(', ',[MIMEtype[t] for t in existingTypes])+CRLF+CRLF
 
 #determine redirect?
 
 	if method == 'GET':
-		if URL.rpartition('.')[1] == '.': #if type was specified
+		if URLType != '': #if type was specified
 			return httpGET(URL)#use specification
 		else:
 			return httpGET(URL+'.'+existingTypes[0])#default to first found
 	elif method == 'HEAD':
-		if URL.rpartition('.')[1] == '.': #if type was specified
+		if URLType != '': #if type was specified
 			return httpHEAD(URL)#use specification
 		else:
 			return httpHEAD(URL+'.'+existingTypes[0])#default to first found
@@ -173,6 +174,7 @@ class EchoServer:
 		self.accept()
 		self.sock.shutdown()
 		self.sock.close()
+		print("server done.")
 
 	def setup_socket(self):
 		self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
