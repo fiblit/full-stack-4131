@@ -75,7 +75,11 @@ def processHeaders(lines):
 
 def searchByTypeForFiletypesOfURL(URL):
 	types = []
-	URLtype = URL.rpartition('.')[0]
+	URLtype = URL.split('/')[-1].split('.')
+	if len(URLtype) > 1:
+		URLtype = URLtype[-1]
+	else:
+		URLtype = ''
 	if URLtype == '': #none specified
 		for key in orderedMIMEtype:
 			if os.path.exists(URL+'.'+key) and os.path.isfile(URL+'.'+key):
@@ -105,6 +109,7 @@ def processResponse(file, header, method):
 		result = header + CRLF
 		for line in f:
 			result += line.rstrip() + CRLF
+		f.close()
 		return result
 	elif method == 'HEAD':
 		return header+CRLF+CRLF
