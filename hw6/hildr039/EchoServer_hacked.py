@@ -21,12 +21,6 @@ import sys #- enables you to get the argument vector (argv) from command line an
 #constructing a response
 BUFSIZE = 4096
 CRLF = '\r\n'
-OK = 'HTTP/1.0 200 OK{}{}{}'.format(CRLF,CRLF,CRLF)
-FORBIDDEN = 'HTTP/1.0 403 Forbidden{}{}{}'.format(CRLF,CRLF,CRLF)
-NOT_FOUND = 'HTTP/1.0 404 Not Found{}{}{}'.format(CRLF,CRLF,CRLF)
-NOT_ALLOWED = 'HTTP/1.0 405 Method Not Allowed{}{}{}'.format(CRLF,CRLF,CRLF)
-NOT_ACCEPTABLE = 'HTTP/1.0 406 Not Acceptable{}{}{}'.format(CRLF,CRLF,CRLF)
-REDIRECT = 'HTTP/1.0 301 Permanent Redirect{}{}{}'.format(CRLF,CRLF,CRLF)
 #You mighte find it useful to define variables similiar to the one above
 #for each kind of response message
 
@@ -49,20 +43,124 @@ REDIRECT = 'HTTP/1.0 301 Permanent Redirect{}{}{}'.format(CRLF,CRLF,CRLF)
 #             the string you read in from the file
 #           return the response
 
-def client_talk(client_sock, client_addr):
-		print('talking to {}'.format(client_addr))
-		data = client_sock.recv(BUFSIZE)
-	# note, here is where you decode the data and process the request
-		req = data.decode('utf-8')
-	# then, you'll need a routine to process the data, and formulate a response
-		# response = processreq(req) 
-		#once have the response, you send it
-		client_sock.send(bytes(response, 'utf-8'))
+version = 'HTTP/1.1'
+methods = ['GET','HEAD']
+HTTPcode = {}
+HTTPcode['200'] = version+' 200 OK'+CRLF
+HTTPcode['301'] = version+' 301 Moved Permanently'+CRLF
+HTTPcode['403'] = version+' 403 Forbidden'+CRLF+CRLF+CRLF
+HTTPcode['404'] = version+' 404 Not Found'+CRLF+CRLF+CRLF
+HTTPcode['405'] = version+' 405 Method Not Allowed'+CRLF+'Allow: '+str.join(', ',methods)+CRLF+CRLF
+HTTPcode['406'] = version+' 406 Not Acceptable'+CRLF
+MIMEtype = {
+	'html':'text/html',
+	'jpeg':'image/jpeg',
+	'gif':'image/gif',
+	'pdf':'application/pdf',
+	'doc':'application/msword',
+	'pptx':'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+}
+orderedMIMEtype = ['html','jpeg','gif','pdf','doc','pptx']
 
-		# clean up
-		client_sock.shutdown(1)
-		client_sock.close()
-		print('connection closed.')
+def processHeaders(lines):
+	headers = {}
+	while lines[0] != '':
+		(hName, ignore, hValue) = lines[0].partition(': ')
+		hValue = hValue.rstrip()
+		hValues = [v.lstrip().rstrip() for v in hValue.split(',')]
+		headers[hName] = hValues
+		del lines[0]
+	del lines[0]
+	return (lines, headers)
+
+def httpGET(URL):
+	return HTTPcode['200']+CRLF+CRLF
+def httpHEAD(URL):
+	return HTTPcode['200']+CRLF+CRLF
+
+def searchByTypeForFiletypesOfURL(URL):
+	types = []
+	URLtype = URL.rpartition('.')[2]
+	if URLtype == '': #none specified
+		for key in orderedMIMEtype:
+			if os.path.exists(URL+'.'+key) and os.path.isfile(URL+'.'+key):
+				types += [key]
+	else:
+		if os.path.exists(URL) and os.path.isfile(URL):
+			types += [URLtype]
+	return types
+
+#deprecated
+# def searchByDirForFiletypesOfURL(URL):
+# 	types = []
+# 	URLtype = URL.rpartition('.')[2]
+# 	(ldir,ignore,name) = URL.rpartition('/')
+# 	name = name.rpartition('.')[0]
+# 	# for each (actual) file in ldir
+# 	for item in os.listdir(ldir):
+# 		if os.path.isfile(ldir+item):
+# 			part = item.partition('.')
+# 			if part[0] == name and (URLtype == '' or URLtype == part[2]):
+# 				types += [part[2]]#store type
+# 	return types
+
+def processRequest(requestMsg):
+	lines = requestMsg.split(CRLF)
+	requestLine = lines[0] #assume the requestLine exists/worked
+	del lines[0]
+	(method, URL, version) = requestLine.split(' ')
+	if URL[0] == '/':
+		URL = '.' + URL
+	version = version.rstrip()
+
+	#URL(.*) doesn't exist
+	existingTypes = searchByTypeForFilesOfURL(URL)
+	if existingTypes == []:
+		return HTTPcode['404']#send HTTP 404
+
+	#URL(.*) not readable by "others"
+	if stat.S_IMODE(os.stat(URL).st_mode) & stat.S_IROTH == 0:
+		return HTTPcode['403']#send HTTP 403
+
+	(lines, headers) = processHeaders(lines)
+	if headers['accept'] == None:
+		headers['accept'] = []
+	if existingTypes not in headers['accept']:
+		#send HTTP 406 with feasible types for "content-type:"
+		return HTTPcode['406']+\
+		+"Content-type: "+str.join(', ',[MIMEtype[t] for t in existingTypes])+CRLF+CRLF
+
+#determine redirect?
+
+	if method == 'GET':
+		if URL.rpartition('.')[1] == '.': #if type was specified
+			return httpGET(URL)#use specification
+		else:
+			return httpGET(URL+'.'+existingTypes[0])#default to first found
+	elif method == 'HEAD':
+		if URL.rpartition('.')[1] == '.': #if type was specified
+			return httpHEAD(URL)#use specification
+		else:
+			return httpHEAD(URL+'.'+existingTypes[0])#default to first found
+	else:
+		return HTTPcode['405']#send HTTP 405
+
+
+
+def client_talk(client_sock, client_addr):
+	print('talking to {}'.format(client_addr))
+	data = client_sock.recv(BUFSIZE)
+	# note, here is where you decode the data and process the request
+	req = data.decode('utf-8')
+	# then, you'll need a routine to process the data, and formulate a response
+	response = processRequest(req) 
+	#once have the response, you send it
+	client_sock.send(bytes(response, 'utf-8'))
+
+	# clean up
+	client_sock.shutdown(1)
+	client_sock.close()
+	print('connection closed.')
 
 class EchoServer:
 	def __init__(self, host, port):
