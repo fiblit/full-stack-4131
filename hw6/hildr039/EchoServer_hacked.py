@@ -7,13 +7,13 @@ from threading import Thread
 from argparse import ArgumentParser
 
 # for the server you may find the following python libraries useful:
-#import os - check to see if a file exists in python -
+import os #- check to see if a file exists in python -
 # e.g., os.path.isfile, os.path.exists
 
-#import stat
+import stat
 #check if a file has others permissions set, os.stat
 
-#import sys - enables you to get the argument vector (argv) from command line and use
+import sys #- enables you to get the argument vector (argv) from command line and use
 # values passed in from the command line
 
 
@@ -22,7 +22,12 @@ from argparse import ArgumentParser
 BUFSIZE = 4096
 CRLF = '\r\n'
 OK = 'HTTP/1.0 200 OK{}{}{}'.format(CRLF,CRLF,CRLF)
-#You might find it useful to define variables similiar to the one above
+FORBIDDEN = 'HTTP/1.0 403 Forbidden{}{}{}'.format(CRLF,CRLF,CRLF)
+NOT_FOUND = 'HTTP/1.0 404 Not Found{}{}{}'.format(CRLF,CRLF,CRLF)
+NOT_ALLOWED = 'HTTP/1.0 405 Method Not Allowed{}{}{}'.format(CRLF,CRLF,CRLF)
+NOT_ACCEPTABLE = 'HTTP/1.0 406 Not Acceptable{}{}{}'.format(CRLF,CRLF,CRLF)
+REDIRECT = 'HTTP/1.0 301 Permanent Redirect{}{}{}'.format(CRLF,CRLF,CRLF)
+#You mighte find it useful to define variables similiar to the one above
 #for each kind of response message
 
 #Outline for processing a request - indicated by the call to processreq below
@@ -43,8 +48,6 @@ OK = 'HTTP/1.0 200 OK{}{}{}'.format(CRLF,CRLF,CRLF)
 #           create a response message by concatenating the OK message above with
 #             the string you read in from the file
 #           return the response
-#
-
 
 def client_talk(client_sock, client_addr):
 		print('talking to {}'.format(client_addr))
@@ -82,7 +85,7 @@ class EchoServer:
 		while True:
 			(client, address) = self.sock.accept()
 			th = Thread(target=client_talk, args=(client, address))
-			th.start()
+			th.run()
 
 def parse_args():
 	parser = ArgumentParser()
