@@ -75,7 +75,7 @@ def processHeaders(lines):
 
 def searchByTypeForFiletypesOfURL(URL):
 	types = []
-	URLtype = URL.rpartition('.')[2]
+	URLtype = URL.rpartition('.')[0]
 	if URLtype == '': #none specified
 		for key in orderedMIMEtype:
 			if os.path.exists(URL+'.'+key) and os.path.isfile(URL+'.'+key):
@@ -89,8 +89,8 @@ def searchByTypeForFiletypesOfURL(URL):
 # def searchByDirForFiletypesOfURL(URL):
 # 	types = []
 # 	URLtype = URL.rpartition('.')[2]
-# 	(ldir,ignore,name) = URL.rpartition('/')
-# 	name = name.rpartition('.')[0]
+# 	(name,ignore,ldir) = URL.rpartition('/')
+# 	name = name.rpartition('.')[2]
 # 	# for each (actual) file in ldir
 # 	for item in os.listdir(ldir):
 # 		if os.path.isfile(ldir+item):
@@ -104,7 +104,7 @@ def processResponse(file, header, method):
 		f = open(file,'r')
 		result = header + CRLF
 		for line in f:
-			result += line.strip() + CRLF
+			result += line.rstrip() + CRLF
 		return result
 	elif method == 'HEAD':
 		return header+CRLF+CRLF
@@ -116,7 +116,7 @@ def processRequest(requestMsg):
 	requestLine = lines[0] #assume the requestLine exists/worked
 	del lines[0]
 	(method, URL, version) = requestLine.split(' ')
-	URLtype = URL.rpartition('.')[2]
+	URLtype = URL.rpartition('.')[0]
 	if URL[0] == '/':
 		URL = '.' + URL
 	version = version.rstrip()
@@ -125,6 +125,8 @@ def processRequest(requestMsg):
 	existingTypes = searchByTypeForFiletypesOfURL(URL)
 	if existingTypes == []:
 		return processResponse('./404.html', HTTPcode['404'], method) #send HTTP 404
+	if URLtype == '':#if type was not specified
+		URL = URL + '.' + existingTypes[0]#specify it
 
 	#URL(.*) not readable by "others"
 	if stat.S_IMODE(os.stat(URL).st_mode) & stat.S_IROTH == 0:
@@ -132,18 +134,19 @@ def processRequest(requestMsg):
 
 	(lines, headers) = processHeaders(lines)
 	if 'accept' not in headers:
-		headers['accept'] = []
-	if existingTypes not in headers['accept'] and existingTypes[0] != URLtype:
-		#send HTTP 406 with feasible types for "content-type:"
-		return HTTPcode['406']\
-		+"Content-type: "+str.join(', ',[MIMEtype[t] for t in existingTypes])+CRLF+CRLF
+		headers['accept'] = orderedMIMEtype
+	if existingTypes[0] != URLtype:
+		flag = False
+		for t in existingTypes:
+			if t in headers['accept']:
+				flag = True
+		if not flag:
+			return HTTPcode['406']\
+			+"Content-type: "+str.join(', ',[MIMEtype[t] for t in existingTypes])+CRLF+CRLF
 
 #determine redirect?
 
-	if URLtype != '':#if type was specified
-		return processResponse(URL, HTTPcode['200'], method)
-	else:
-		return processResponse(URL+'.'+existingTypes[0], HTTPcode['200'], method)
+	return processResponse(URL, HTTPcode['200'], method)
 
 
 
@@ -161,7 +164,10 @@ def client_talk(client_sock, client_addr):
 	# clean up
 	client_sock.shutdown(1)
 	client_sock.close()
-	print('connection closed.')
+	try:
+		print('connection closed.')
+	except:
+		pass		
 
 class EchoServer:
 	def __init__(self, host, port):
