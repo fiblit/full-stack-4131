@@ -48,8 +48,8 @@ methods = ['GET','HEAD']
 HTTPcode = {}
 HTTPcode['200'] = version+' 200 OK'+CRLF
 HTTPcode['301'] = version+' 301 Moved Permanently'+CRLF
-HTTPcode['403'] = version+' 403 Forbidden'+CRLF+CRLF+CRLF
-HTTPcode['404'] = version+' 404 Not Found'+CRLF+CRLF+CRLF
+HTTPcode['403'] = version+' 403 Forbidden'+CRLF
+HTTPcode['404'] = version+' 404 Not Found'+CRLF
 HTTPcode['405'] = version+' 405 Method Not Allowed'+CRLF+'Allow: '+str.join(', ',methods)+CRLF+CRLF
 HTTPcode['406'] = version+' 406 Not Acceptable'+CRLF
 MIMEtype = {
@@ -67,16 +67,11 @@ def processHeaders(lines):
 	while lines[0] != '':
 		(hName, ignore, hValue) = lines[0].partition(': ')
 		hValue = hValue.rstrip()
-		hValues = [v.lstrip().rstrip() for v in hValue.split(',')]
+		hValues = [v.strip() for v in hValue.split(',')]
 		headers[hName] = hValues
 		del lines[0]
 	del lines[0]
 	return (lines, headers)
-
-def httpGET(URL):
-	return HTTPcode['200']+CRLF+CRLF
-def httpHEAD(URL):
-	return HTTPcode['200']+CRLF+CRLF
 
 def searchByTypeForFiletypesOfURL(URL):
 	types = []
@@ -104,6 +99,18 @@ def searchByTypeForFiletypesOfURL(URL):
 # 				types += [part[2]]#store type
 # 	return types
 
+def processResponse(file, header, method):
+	if method == 'GET': 
+		f = open(file,'r')
+		result = header + CRLF
+		for line in f:
+			result += line.strip() + CRLF
+		return result
+	elif method == 'HEAD':
+		return header+CRLF+CRLF
+	else:
+		return HTTPcode['405']#send HTTP 405
+
 def processRequest(requestMsg):
 	lines = requestMsg.split(CRLF)
 	requestLine = lines[0] #assume the requestLine exists/worked
@@ -117,11 +124,11 @@ def processRequest(requestMsg):
 	#URL(.*) doesn't exist
 	existingTypes = searchByTypeForFiletypesOfURL(URL)
 	if existingTypes == []:
-		return HTTPcode['404']#send HTTP 404
+		return processResponse('./404.html', HTTPcode['404'], method) #send HTTP 404
 
 	#URL(.*) not readable by "others"
 	if stat.S_IMODE(os.stat(URL).st_mode) & stat.S_IROTH == 0:
-		return HTTPcode['403']#send HTTP 403
+		return processResponse('./403.html', HTTPcode['403'], method)#send HTTP 403
 
 	(lines, headers) = processHeaders(lines)
 	if 'accept' not in headers:
@@ -133,18 +140,11 @@ def processRequest(requestMsg):
 
 #determine redirect?
 
-	if method == 'GET':
-		if URLtype != '': #if type was specified
-			return httpGET(URL)#use specification
-		else:
-			return httpGET(URL+'.'+existingTypes[0])#default to first found
-	elif method == 'HEAD':
-		if URLtype != '': #if type was specified
-			return httpHEAD(URL)#use specification
-		else:
-			return httpHEAD(URL+'.'+existingTypes[0])#default to first found
+	if URLtype != '':#if type was specified
+		return processResponse(URL, HTTPcode['200'], method)
 	else:
-		return HTTPcode['405']#send HTTP 405
+		return processResponse(URL+'.'+existingTypes[0], HTTPcode['200'], method)
+
 
 
 
