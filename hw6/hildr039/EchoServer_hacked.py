@@ -92,8 +92,11 @@ def searchByTypeForFiletypesOfURL(URL):
 def processResponse(file, header, method):
 	if method == 'GET': 
 		f = open(file,'r')
-		result = header + CRLF
-		if file.rpartition('.')[2] in ["html"]:
+		fileType = file.rpartition('.')[2]
+		result = header\
+		+'Content-type: '+MIMEtype[fileType]+CRLF
+		result += CRLF
+		if fileType in ["html"]:
 			for line in f:
 				result += line.rstrip() + CRLF
 			f.close()
@@ -189,9 +192,9 @@ class EchoServer:
 
 def parse_args():
 	parser = ArgumentParser()
-	parser.add_argument('port','-p','--port', nargs='?', type=int, default=9001,
+	parser.add_argument('port', nargs='?', type=int, default=9001,
 											help='specify a port to operate on (default: 9001)')
-	parser.add_argument('host','-h','--host', nargs='?', type=str, default='localhost',
+	parser.add_argument('host', nargs='?', type=str, default='localhost',
 											help='specify a host to operate on (default: localhost)')
 	args = parser.parse_args()
 	return (args.host, args.port)
