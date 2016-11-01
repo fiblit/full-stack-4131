@@ -115,6 +115,10 @@ def processRequest(requestMsg):
 		URL = '.' + URL
 	version = version.rstrip()
 
+	if URL.partition('/')[2] == 'csumn':
+		return HTTPcode['301']\
+		+"Location: https://www.cs.umn.edu/"+CRLF+CRLF
+
 	#URL(.*) doesn't exist
 	existingTypes = searchByTypeForFiletypesOfURL(URL)
 	if existingTypes == []:
@@ -138,11 +142,7 @@ def processRequest(requestMsg):
 			return HTTPcode['406']\
 			+"Content-type: "+str.join(', ',[MIMEtype[t] for t in existingTypes])+CRLF+CRLF
 
-	if URL.partition('/')[2] == 'csumn':
-		return HTTPcode['301']\
-		+"Location: https://www.cs.umn.edu/"+CRLF+CRLF
-
-	return processResponse(URL, HTTPcode['200'], method)
+	return processResponse(URL, HTTPcode['200'], method)	
 
 def client_talk(client_sock, client_addr):
 	print('talking to {}'.format(client_addr))
