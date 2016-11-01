@@ -90,11 +90,12 @@ def searchByTypeForFiletypesOfURL(URL):
 	return types
 
 def processResponse(file, header, method):
+	fileType = file.rpartition('.')[2]
+	contenttype="Content-type: "+MIMEtype[fileType]+CRLF
+	contentlength="Content-length: "+str(int(os.stat(file).st_size))+CRLF
+	result = header+contenttype+contentlength
 	if method == 'GET': 
 		f = open(file,'r')
-		fileType = file.rpartition('.')[2]
-		result = header\
-		+'Content-type: '+MIMEtype[fileType]+CRLF
 		result += CRLF
 		if fileType in ["html"]:
 			for line in f:
@@ -102,9 +103,9 @@ def processResponse(file, header, method):
 			f.close()
 			return result
 		else:
-			return result + file + CRLF
+			return result + CRLF + file + CRLF #just the file name
 	elif method == 'HEAD':
-		return header+CRLF+CRLF
+		return result+CRLF+CRLF
 	else:
 		return HTTPcode['405']#send HTTP 405
 
@@ -150,8 +151,10 @@ def processRequest(requestMsg):
 def client_talk(client_sock, client_addr):
 	print('talking to {}'.format(client_addr))
 	data = client_sock.recv(BUFSIZE)
+	while data:
 	# note, here is where you decode the data and process the request
-	req = data.decode('utf-8')
+		req += data.decode('utf-8')
+		data = client_sock.recv(BUFSIZE)
 	# then, you'll need a routine to process the data, and formulate a response
 	response = processRequest(req) 
 	print(response)
