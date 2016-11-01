@@ -126,7 +126,7 @@ def processRequest(requestMsg):
 	(lines, headers) = processHeaders(lines)
 	if 'accept' not in headers:
 		headers['accept'] = []
-	if existingTypes not in headers['accept'] or existingTypes[0] != URLtype:
+	if existingTypes not in headers['accept'] and existingTypes[0] != URLtype:
 		#send HTTP 406 with feasible types for "content-type:"
 		return HTTPcode['406']\
 		+"Content-type: "+str.join(', ',[MIMEtype[t] for t in existingTypes])+CRLF+CRLF
@@ -134,12 +134,12 @@ def processRequest(requestMsg):
 #determine redirect?
 
 	if method == 'GET':
-		if URLType != '': #if type was specified
+		if URLtype != '': #if type was specified
 			return httpGET(URL)#use specification
 		else:
 			return httpGET(URL+'.'+existingTypes[0])#default to first found
 	elif method == 'HEAD':
-		if URLType != '': #if type was specified
+		if URLtype != '': #if type was specified
 			return httpHEAD(URL)#use specification
 		else:
 			return httpHEAD(URL+'.'+existingTypes[0])#default to first found
