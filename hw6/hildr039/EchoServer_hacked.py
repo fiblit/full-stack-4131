@@ -19,8 +19,8 @@ import sys #- enables you to get the argument vector (argv) from command line an
 
 #other defintions that will come in handy for getting data and
 #constructing a response
-BUFSIZE = 4096
 CRLF = '\r\n'
+BUFSIZE = 4096
 #You mighte find it useful to define variables similiar to the one above
 #for each kind of response message
 
@@ -42,7 +42,6 @@ CRLF = '\r\n'
 #           create a response message by concatenating the OK message above with
 #             the string you read in from the file
 #           return the response
-
 version = 'HTTP/1.1'
 methods = ['GET','HEAD']
 HTTPcode = {}
@@ -68,7 +67,7 @@ def processHeaders(lines):
 		(hName, ignore, hValue) = lines[0].partition(': ')
 		hValue = hValue.rstrip()
 		hValues = [v.strip() for v in hValue.split(',')]
-		headers[hName] = hValues
+		headers[hName.lower()] = hValues
 		del lines[0]
 	del lines[0]
 	return (lines, headers)
@@ -85,19 +84,22 @@ def searchByTypeForFiletypesOfURL(URL):
 			if os.path.exists(URL+'.'+key) and os.path.isfile(URL+'.'+key):
 				types += [key]
 	else:
-		if os.path.exists(URL) and os.path.isfile(URL):
+		if URLtype in MIMEtype and os.path.exists(URL) and os.path.isfile(URL):
 			types += [URLtype]
 	return types
 
 def processResponse(file, header, method):
 	fileType = file.rpartition('.')[2]
-	contenttype="Content-type: "+MIMEtype[fileType]+CRLF
+	if fileType in ["html"]: #filetype supported
+		contenttype="Content-type: "+MIMEtype[fileType]+CRLF
+	else:
+		contenttype="Content-type: text/plain"+CRLF
 	contentlength="Content-length: "+str(int(os.stat(file).st_size))+CRLF
 	result = header+contenttype+contentlength
 	if method == 'GET': 
-		f = open(file,'r')
-		result += CRLF
-		if fileType in ["html"]:
+		if fileType in ["html"]: #filetype supported
+			f = open(file,'r')
+			result += CRLF
 			for line in f:
 				result += line.rstrip() + CRLF
 			f.close()
@@ -114,7 +116,7 @@ def processRequest(requestMsg):
 	requestLine = lines[0] #assume the requestLine exists/worked
 	del lines[0]
 	(method, URL, version) = requestLine.split(' ')
-	URLtype = URL.rpartition('.')[0]
+	URLtype = URL.rpartition('.')[2]
 	if URL[0] == '/':
 		URL = '.' + URL
 	version = version.rstrip()
@@ -140,7 +142,7 @@ def processRequest(requestMsg):
 	if existingTypes[0] != URLtype:
 		flag = False
 		for t in existingTypes:
-			if t in headers['accept']:
+			if MIMEtype[t] in headers['accept']:
 				flag = True
 		if not flag:
 			return HTTPcode['406']\
@@ -150,16 +152,8 @@ def processRequest(requestMsg):
 
 def client_talk(client_sock, client_addr):
 	print('talking to {}'.format(client_addr))
-	data = client_sock.recv(BUFSIZE).decode('utf-8')
-	blanklines= 0
-	req = ''
-	while blanklines < 2:
-	# note, here is where you decode the data and process the request
-		for l in data.split('\r\n')[:-1]:
-			if l == '':
-				blanklines += 1
-		req += data
-		data = client_sock.recv(BUFSIZE).decode('utf-8')
+	data = client_sock.recv(BUFSIZE)
+	req = data.decode('utf-8')
 	# then, you'll need a routine to process the data, and formulate a response
 	response = processRequest(req) 
 	print(response)
