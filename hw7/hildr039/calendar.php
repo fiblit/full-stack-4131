@@ -1,7 +1,8 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
+
 function sortByStartTime($event1, $event2) {
   if ($event1['startTime']==$event2['startTime'])
     return 0;
@@ -60,10 +61,10 @@ function geocode($address){
     <table class="table-aligned-div">
       <tbody>
         <?php
-
-        $jsonFile = fopen("calendar.txt","r");
-        if (filesize("calendar.txt") > 0) {
+        if (file_exists("calendar.txt")) {
+          $jsonFile = fopen("calendar.txt","r");
           $json = fread($jsonFile,filesize("calendar.txt"));
+          fclose($jsonFile);
         }
         else {
           $json = '';

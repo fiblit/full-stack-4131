@@ -1,7 +1,7 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+//ini_set('display_errors', 1);
+//ini_set('display_startup_errors', 1);
+//error_reporting(E_ALL);
 
 $eventNameErr = $startTimeErr = $endTimeErr = $locationErr = $dayErr = $imageURLErr = '';
 $eventname = $startTime = $endTime= $location = $day = $imageURL = '';
@@ -12,7 +12,6 @@ function sanitizeInput($input) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-var_dump($_POST);
   if (isset($_POST['Submit'])) {
     /* sanitize & validate  event name */
     if (empty($_POST['eventname'])) {
@@ -108,9 +107,7 @@ var_dump($_POST);
     }
   }
   elseif (isset($_POST["Clear"])) {
-    var_dump($_POST);
     $jsonFile = fopen("calendar.txt", "w") or die("Failed to write event");
-    var_dump($jsonFile);
     fwrite($jsonFile, '');
     fclose($jsonFile);
     header('Location: calendar.php');
