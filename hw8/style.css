@@ -1,0 +1,296 @@
+body {
+  margin: 0;
+  background-color: #222222;
+  color: white;
+}
+
+header {
+  margin-top: 15px;
+}
+
+.container {
+  position: relative;
+}
+
+.ad-button {
+  background: 0;
+  border: 0;
+  padding: 0;
+  margin: 3px;
+  display: inline-block;
+}
+
+#prev-button, #next-button {
+  position: relative;
+  bottom: 125px;
+}
+
+#advert, #bullets {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#advert-link {
+  display: inline-block;
+}
+
+.title {
+  font-size: 300%;
+  font-family: "Courier", monospace;
+  color: white;
+  font-weight: bold;
+}
+
+.welcome {
+  background: #AA0000;
+  display: inline-block;
+  padding: 10px;
+  margin: 5px;
+  float: left;
+}
+
+nav {
+  clear: both;
+  background: #00AA00;
+  margin: 5px 0px;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+nav ul li {
+  float: left;
+}
+
+.nav-tab {
+  border-left: 0px;
+  border-right: 3px solid #222222;
+  padding: 8px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  background: #00AA00;
+  color: white;
+}
+
+nav ul li:first-child .nav-tab {
+  border-left: 3px solid #222222;
+}
+
+.nav-tab:hover {
+  background: #00DD00
+}
+
+.nav-current {
+  background: #AA0000
+}
+
+.nav-current:hover {
+  background: #DD0000
+}
+
+.table-aligned-div {
+  position: relative;
+  width: 70%;
+  margin: auto;
+}
+
+.scroll-rtl {
+  display: inline;
+  color: white;
+  position: relative;
+  animation: mymove 30s infinite linear;
+  right: 0%;
+}
+
+@keyframes mymove {
+    from {left: 100%;}
+    /* rough estimate for when text should be off table :P */
+    to {left: -100%;}
+}
+
+.left {
+  /*float: left;*/
+  left: 0;
+}
+
+.right {
+  /*float: right;*/
+  top: 0;
+  right: 0;
+}
+
+.hide-scrolltext {
+  background: #222222;
+  /* the width of these is a pain to update, tried to make it easier, but CSS bugged out as usual */
+  width: 15%;
+  height: 1.1em;
+  position: absolute;
+  z-index: 1;
+}
+
+.clip {
+  position: relative;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.time {
+  font-style: italic;
+  font-weight: bold;
+}
+
+p {
+  color: white;
+}
+
+.loc {
+  text-decoration: underline;
+  color: maroon;
+}
+.loc:hover {
+  color: red;
+}
+
+.error {
+  background-color: white;
+  color: red;
+  font-weight: bold;
+}
+
+.required {
+  color: red;
+  font-style: italic;
+}
+
+.hidden-data {
+  display: none;
+}
+
+/* these next two are always in binary complement */
+.table-preview {
+  display: none;
+}
+
+td {
+  position: relative;
+}
+.table-preview-hover {
+  margin: 0px;
+  visibility: visible;
+  display: block;
+  position: absolute;
+  left:100%;
+  top: 0%;
+  transform: translate(-2%,18%);
+  z-index: 1;
+  border: 1px solid white;
+}
+
+.dayofweek {
+  font-family: Arial;
+  font-size: 150%;
+  text-decoration: underline;
+  font-weight: bold;
+  color: white;
+}
+
+label {
+  display: block;
+  width: 45%;
+  margin: 8px 0px;
+  border-bottom: 2px dotted white;
+}
+
+.form-input-col {
+  position: absolute;
+  left: 50%;
+}
+
+form {
+  display: block;
+  padding: 1px 5px;
+  margin: 5px 0px;
+  background: #00AA00;
+  color: white;
+}
+
+.calendar-form-item {
+  position:relative;
+  margin: 8px 0px;
+}
+.calendar-form-col {
+  display:inline-block;
+}
+.calendar-label {
+  margin: 0px 0px;
+}
+.calendar-form-rcol {
+  position:absolute;
+  left:50%;
+  top: 0;
+}
+
+.map {
+  height: 500px;
+}
+
+.tested-browsers {
+  font-size: 70%;
+  min-height: 2em;
+  color: white;
+}
+
+.center {
+  text-align: center;
+}
+
+table {
+  width: 33.3333%;
+  margin: auto;
+  border-collapse: collapse;
+  color: white;
+}
+
+a {
+  color: blue;
+}
+
+td {
+  display: inline-block;
+}
+td, th {
+  border-collapse: collapse;
+  border: 2px solid #FFFFFF;
+  margin: 2px 1px;
+  text-align: center;
+  padding: 8px;
+}
+th {
+  width: 1px;
+  background: #DD0000;
+}
+
+tr:nth-child(odd) td {
+  background-color: #00AA00;
+}
+
+tr:nth-child(even) td {
+  background-color: #AAAAAA;
+}
+
+
+h1 {
+  font-size: 200%;
+  margin: 10px;
+}
+
+p {
+  margin: 3px;
+}
