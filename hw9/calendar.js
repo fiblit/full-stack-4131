@@ -4,11 +4,26 @@ function extractTodaysEvents(){
   var eventText = "";
   var day = new Date().getDay();
   var rows = document.getElementsByTagName("tr");
-  if (day > 0 && day < 6) {
+  var days = document.querySelectorAll(".dayofweek");
+  var flag = false;
+  var dayIndex = -1;
+  for (var i = 0; i < days.length; i++) {
+    var map = {'Mon':1,"Tue":2,"Wed":3,"Thu":4,"Fri":5,'Sat':6,"Sun":0};
+    console.log(map[days[i].innerText]);
+    console.log(day);
+    if (map[days[i].innerText] == day){
+      flag = true;
+      dayIndex = i;
+    }
+  }
+  console.log(days);
+  console.log(dayIndex);
+  console.log(flag);
+  if (flag) {
     var i;
-    for (i = 0; i < rows[day - 1].cells.length; i++){
-      if (rows[day - 1].cells[i].className === "event-data") {
-        todaysEvents.push(rows[day - 1].cells[i]);
+    for (i = 0; i < rows[dayIndex].cells.length; i++){
+      if (rows[dayIndex].cells[i].className === "event-data") {
+        todaysEvents.push(rows[dayIndex].cells[i]);
       }
     }
   }

@@ -1,3 +1,0 @@
-[
-{"day":"Mon","startTime":"11:11","endTime":"11:22","eventName":"Alexander","location":"Keller Hall, MN","imageURL":"Images\/spacer.gif"},
-{"day":"Thu","startTime":"11:33","endTime":"23:22","eventName":"kooskoos","location":"Akerman","imageURL":"Images\/akerman.jpg"}]

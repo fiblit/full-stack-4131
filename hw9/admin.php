@@ -37,7 +37,19 @@ class Model {
       }
 
       $this->curusr = $_SESSION["user"];
-      $this->editing = NULL;
+      if (isset($_SESSION["edit"])) {
+        $this->editing = $_SESSION["edit"];
+      }
+      else {
+        $this->editing = NULL;
+      }
+
+      if (isset($_SESSION["msg"])) {
+        $this->errorMSG = $_SESSION["msg"];
+      }
+      else {
+        $this->errorMSG = NULL;
+      }
     }
 
     private function sanitizeInput($input) {
@@ -69,12 +81,20 @@ class Model {
     public function delete_user($login) {
       $query = 'DELETE FROM tbl_accounts WHERE acc_login=\''.$login.'\';';
       $this->conn->query($query);
+      $_SESSION['msg'] = "account deleted successfuly";
       return 0;
     }
 
     public function update_user($name, $login, $password) {
-      $this->delete_user($login);
-      $this->insert_user($name, $login, $password);
+      $query = 'UPDATE tbl_accounts SET acc_name=\''.$name.'\', acc_login=\''.$login.'\', acc_password=\''.$password.'\' WHERE acc_login=\''.$this->editing.'\';';
+      $this->conn->query($query);
+      return 0;
+    }
+
+    public function edit($edit) {
+      $_SESSION['edit'] = $edit;
+      header('Location: admin.php');
+      die();
     }
 
     public function do_update($name_IN, $login_IN, $password_IN) {
@@ -84,8 +104,10 @@ class Model {
       $password = sha1($this->sanitizeInput($password_IN));
 
       //bleach,
-      if (0 != $this->validate_login($name)) {
-        return 1;
+      if (0 != $this->validate_login($login)) {
+        if ($login !== $this->editing) {
+          return 1;
+        }
       }
       if (0 != $this->validate_password($password)) {
         return 1;
@@ -96,6 +118,9 @@ class Model {
 
       //and a little rubbing alcohol
       $this->update_user($name, $login, $password);
+
+      $_SESSION['msg']='Account updated succesfully';
+      $this->edit(NULL);
 
       //will do the job
       header('Location: admin.php');
@@ -121,6 +146,8 @@ class Model {
       //and a little rubbing alcohol
       $this->insert_user($name, $login, $password);
 
+      $_SESSION['msg']='Account added succesfully';
+
       //will do the job
       header('Location: admin.php');
       die();
@@ -142,12 +169,21 @@ class Model {
         return 1;
       }
       //check it is unique
-      if (in_array($login, $this->login_user_info(), true)) {
-        $this->errorMSG = "That login is already taken. Please choose another.";
+      if ($this->specialexists($login, $this->login_user_info())) {
+        $this->errorMSG = "That login is already taken by another account. Please choose another.";
         $this->errorTYPE = "MINOR";
         return 1;
       }
       return 0;
+    }
+
+    private function specialexists($needle, $haystack) {
+      foreach ($haystack as $nedle) {
+        if ($needle === $nedle['acc_login']) {
+          return true;
+        }
+      }
+      return false;
     }
 
     private function validate_password($password) {
@@ -264,7 +300,7 @@ class View {
     private function out_userpassword($user) {
       if ($this->model->editing == $user['acc_login']) {
         return '
-          <input name = "password" type="text"/>';
+          <input name = "password" type="password"/>';
       }
       else {
         return '';//$user['acc_password'];
@@ -308,10 +344,7 @@ class View {
     }
 
     public function output_body() {
-      return $this->out_header().'
-      <div class="table-aligned-div">
-        <a href="admin.php?action=textclicked">'.$this->model->text.'</a>
-      </div>'
+      return $this->out_header()
       .$this->out_user_table()
       .$this->out_add_new_user();
     }
@@ -330,20 +363,23 @@ class Controller {
 
     /* this is just to identify what input came in. Not "real" logic. */
     public function process_request() {
+      unset($_SESSION['msg']);
       if (isset($_POST['AddUser'])) {
         $this->model->do_add_user($_POST['name'], $_POST['login'], $_POST['password']);
       }
       elseif (isset($_POST['Edit'])) {
-        $this->model->editing = $_POST['Edit'];
+        $this->model->edit($_POST['Edit']);
       }
       elseif (isset($_POST['Delete'])) {
         $this->model->delete_user($_POST['Delete']);//genius, I tell you.
+        header('Location: admin.php');
+        die();
       }
       elseif (isset($_POST['Update'])) {
         $this->model->do_update($_POST['name'], $_POST['login'], $_POST['password']);
       }
       elseif (isset($_POST['Cancel'])) {
-        $this->model->editing = NULL;
+        $this->model->edit(NULL);
       }
       else {
         $this->model->errorMSG = "I'm sorry, I don't know how to do that. Unkown control request.";
@@ -383,12 +419,10 @@ if (isset($_GET['action'])) $controller->{$_GET['action']}();
         It should siplay a message if the user is successfully added, or an error occurs.
       Delete button  should delete the user from the Model.
 
-      NO TWO USERS CAN HAVE THE SAME LOGIN/PASSWORD
+      NO TWO USERS CAN HAVE THE SAME LOGIN
 
       Go by (easy) remaining points:
-      5+25+35+35+10+10+10+15+10+25 = 180/200 guarenteed so far
-       admin.php page DELETE button works for every row
-      +20 admin.php page UPDATE button works for every row (validates input, updates user name, login, and password)
+      5+25+35+35+10+10+10+15+10+25 -30(late) = 170/200 Likely
       -->
   </body>
 </html>

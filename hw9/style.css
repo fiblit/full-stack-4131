@@ -11,6 +11,26 @@ body {
   background-size: 223px 223px, 173px 173px, 391px 391px, 501px 501px, 362px 362px;
   background-position: 58px 140px, 153px -15px, 51px 8px, -129px 65px, 89px 242px, -16px -29px;
   color: white;
+  /*animation-name: twinkle;*/
+  animation-duration: 8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: cubic-bezier(0, 0, 0.86, 1.01);
+}
+
+@keyframes twinkle {
+  0% {
+    background-size: 223px 223px, 173px 173px, 391px 391px, 501px 501px, 362px 362px;
+    background-position: 58px 140px, 153px -15px, 51px 8px, -129px 65px, 89px 242px, -16px -29px;
+  }
+  50% {
+    background-size: 223px 223px, 173px 173px, 391px 391px, 501px 501px, 362px 362px;
+    background-position: 50px 130px, 160px -20px, 45px -5px, -112px 63px, 90px 230px, 0px 0px;
+  }
+  100% {
+    background-size: 223px 223px, 173px 173px, 391px 391px, 501px 501px, 362px 362px;
+    background-position: 65px 122px, 145px 0px, 69px 0px, -128px 70px, 97px 250px, -3px -7px;
+  }
 }
 
 header {

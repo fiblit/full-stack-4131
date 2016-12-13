@@ -134,8 +134,9 @@ function geocodeAddress(geocoder, resultsMap) {
       });
 
       console.log(results);
+      var content = '<p><b>'+address+'</b></p><p>'+results[0].formatted_address+'</p>';
       var infowindow = new google.maps.InfoWindow({
-        content: results[0].formatted_address
+        content: content
       });
       marker.addListener('click', function(map, marker, infowindow) {
         return function() {
